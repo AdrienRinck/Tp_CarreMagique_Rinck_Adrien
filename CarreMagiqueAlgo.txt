@@ -1,0 +1,89 @@
+//Algorithme carré_magique
+//BUT : afficher un carré magique a partir d'une constante
+//ENTREE : une constante
+//SORTIE : le carré magique
+
+CONST
+	max=7
+TYPE
+	CarreMagique = tableau [1..max,1..max] de entier
+
+PROCEDURE Initialisation (var T1:carremagique, var PosI:entier, var PosJ:entier)
+VAR 
+	i,j:entier 
+DEBUT 
+	POUR i<-1 JUSQU'A MAX FAIRE 
+		POUR J<-1 JUSQU'A MAX FAIRE 
+			T1[i,j]<-0 
+			PosI<-(MAX DIV 2)
+			PosJ<-(MAX DIV 2+1)
+			T1[PosI,PosJ]<-1 
+		FINPOUR 
+	FINPOUR 
+FINPROCEDURE 
+
+PROCEDURE Reinitialisation (var T1:CarreMagique, var Compteur:entier)
+VAR 
+	i,j:entier 
+DEBUT 
+	POUR i<-1 JUSQU'A MAX FAIRE 
+		POUR j<-1 JUSQU'A MAX FAIRE 
+			T1[i,j]<-0
+		FINPOUR
+		ECRIRE 
+	FINPOUR
+FINPROCEDURE
+
+PROCEDURE Positionnement (var T1:CarreMagique, var PosI:entier, var PosJ:entier, var compteur:entier)
+VAR 
+	i,j:entier 
+DEBUT 
+	Compteur<-1 
+	TANTQUE (Compteur<=MAX*MAX) FAIRE 
+		DEBUT 
+			PosI<-PosI-1
+			PosJ<-PosJ+1 
+				SI PosI<1 ALORS 
+					PosI<-MAX 
+				FINSI 
+				Si POSJ>MAX ALORS 
+					PosJ<-1
+				FINSI
+			TANTQUE (T1[PosI,PosJ]<>0) FAIRE 
+				PosI<-PosI-1 
+				PosJ<-PosJ-1 
+				SI PosI<1 ALORS 
+					PosI<-MAX 
+				FINSI
+				SI PosJ<1 ALORS 
+					PosJ<-MAX 
+				FINPOUR 
+			FINTANTQUE 
+			T1[PosI,PosJ]<-Compteur 
+			Compteur<-Compteur+1
+	FINTANTQUE 
+FINPROCEDURE 
+
+PROCEDURE Affichage (var T1:CarreMagique)
+VAR 
+	i,j:entier
+DEBUT 
+	POUR i<-1 JUSQU'A MAX FAIRE 
+		POUR j<-1 JUSQU'A MAX FAIRE 
+			ECRIRE(T1[i,j])
+			ECRIRE(" ")
+		FINPOUR 
+		ECRIRE 
+	FINPOUR 
+FINPROCEDURE 
+
+VAR 
+	T2:Array[1..MAX,1..MAX] de entier 
+	i,j,PosI,PosJ,Compteur:entier
+DEBUT 
+	Initialisation(T2,PosI,PosJ)
+	Reinitialisation(T2,Compteur)
+	Positionnement(T2,PosJ,PosI,Compteur)
+	Affichage(T2)
+	LIRE 
+FIN 
